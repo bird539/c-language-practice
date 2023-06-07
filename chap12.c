@@ -31,6 +31,31 @@ int main(void) {
 	return 0;
 }
 */
+
+//3 - 표준입력으로 한 줄의 영어 문자열을 입력 받아 
+//    단어의 문자를 역순으로 출력하는 프로그램을 작성하시오.
+/*
+#include <string.h>
+int main(void) {
+	printf("한 줄의 문장을 입력하세요 >>\n");
+	char text[10000];
+	gets(text);
+	printf("\n입력한 각각의 단어를 반대로 출력합니다. >>\n");
+	int f = 0;
+	char* t = strtok(text, " ");
+	while (t) {
+		for (int i = strlen(t); i >=0; i--) {
+			printf("%c", t[i]);
+		}
+		printf(" ");
+		t = strtok(NULL, " ");
+	}
+	printf("\n");
+
+	return 0;
+}
+*/
+
 //4 - 다음 두 변수를 선언해 함수 strcat()을 사용하지 말고 
 //    두 문자열을 연결해 출력하는 프로그램을 작성하시오.
 /*
@@ -121,8 +146,9 @@ int main(void) {
 }
 */
 //6 - 표준입력으로 한 줄의 영어 문자열을 입력 받아 영문자의 대문자는 소문자로, 
-//    소문자는 대문자로 편환하여 출력하는 프로그램을 작성하시오.
+//    소문자는 대문자로 변환하여 출력하는 프로그램을 작성하시오.
 //    *함수 tolower()와 toupper() 이용
+/*
 #include <string.h>
 #include <ctype.h>
 
@@ -145,3 +171,107 @@ int main(void) {
 
 	return 0;
 }
+*/
+//7 - 다음 내용을 참고로, 정수 형태의 문자열을 정수로 변환하는
+//    함수를 구현하고 결과를 알아보는 프로그램을 작성하시오.
+//-문자열 "4356"은 정수 4356으로, 다음 두 함수에 대하여 모두 출력
+//-라이브러리 함수 atoi()를 사용해 출력, 함수 atoi()의 함수원형은 
+//  stdlib.h에 정의되어 있으며 문자열 str을 정수로 변환하는 함수
+//  int atoi(const char *str);
+//-직접 구현한 함수 toint()도 사용하여 다음과 같이 출력
+//  int toint(const char *str);
+/*
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int toint(const char* str) ;
+int main(void) {
+	printf("정수를 하나 입력하세요 >> ");
+	char str[30];
+	gets(str);
+	printf("%s\n\n", str);
+
+	printf("먼저 함수 atoi()를 이용한 정수 >> %d\n", atoi(str));
+	printf("직접 구현한 함수를 이용한 정수 >> %d\n", toint(str));
+
+	return 0;
+}
+int toint(const char* str) {
+	char textN[10] = "0123456789";
+	int intN[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int number = 0;
+	int f = 0;
+	int len_str = 0;
+	while (f==0) {
+		for (int a = 0; a < 10; a++) {
+			if (str[len_str] == textN[a]) {
+				len_str += 1;
+			}
+		}
+		if (str[len_str] == '\0') {
+			f += 1;
+		}
+	}
+	printf("\nnum len:%d\n", len_str);
+	for (int i = 0; i < len_str; i++) {
+		for (int a = 0; a < 10; a++) {
+			if (str[i] == textN[a]) {
+				int ten = 1;
+				for (int b = (len_str - 1) - i; b > 0; b--) {
+					ten *= 10;
+				}
+				number += intN[a] * ten;
+			}
+		}
+	}
+	return number;
+}
+*/
+
+
+//8 - 앞의 문제에서 직접 구현한 함수 toint()를 이용하여 명령행에 
+//    입력된 두 정수를 더한 결과를 출력하는 프로그램을 작성하시오.
+//-다음은 비주얼 스튜디오의 프로젝트 속성에서 [구성속성/디버깅/명령 인수]에서
+// 567 765를 입력해 실행한 결과 
+/*
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int toint(const char* str);
+int main(int argc, char* argv[])  {
+	printf("입력한 두 수를 더한 결과 >> ");
+	printf("%d + %d = %d\n", toint(argv[1]), toint(argv[2]), toint(argv[1]) + toint(argv[2]));
+	return 0;
+}
+int toint(const char* str) {
+	char textN[10] = "0123456789";
+	int intN[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int number = 0;
+	int f = 0;
+	int len_str = 0;
+	while (f == 0) {
+		for (int a = 0; a < 10; a++) {
+			if (str[len_str] == textN[a]) {
+				len_str += 1;
+			}
+		}
+		if (str[len_str] == '\0') {
+			f += 1;
+		}
+	}
+	for (int i = 0; i < len_str; i++) {
+		for (int a = 0; a < 10; a++) {
+			if (str[i] == textN[a]) {
+				int ten = 1;
+				for (int b = (len_str - 1) - i; b > 0; b--) {
+					ten *= 10;
+				}
+				number += intN[a] * ten;
+			}
+		}
+	}
+	return number;
+}
+*/
